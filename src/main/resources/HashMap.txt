@@ -1,4 +1,6 @@
 ID		A.VALUE		B.VALUE
-2		C		A
 2		B		A
+2		C		A
 3		D		E
+5		Q		U
+5		D		U

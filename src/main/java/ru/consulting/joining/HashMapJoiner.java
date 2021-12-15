@@ -12,7 +12,7 @@ public class HashMapJoiner implements Joiner<HashMap<Integer, List<String>>> {
         writer.writer();
         tableA.forEach((k, v) -> {
             if (tableB.containsKey(k)) {
-                v.stream().forEach(tA -> tableB.get(k).stream().forEach(
+                v.stream().parallel().forEach(tA -> tableB.get(k).stream().forEach(
                         tB -> writer.writer(k, tA, tB)));
             }
         });
