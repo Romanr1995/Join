@@ -1,4 +1,0 @@
-ID		A.VALUE		B.VALUE
-2		C		A
-2		B		A
-3		D		E

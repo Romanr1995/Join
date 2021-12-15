@@ -1,10 +1,10 @@
 package ru.consulting.joining;
 
-import ru.consulting.data.JoiningTable;
+import ru.consulting.writer.FileWriterImpl;
 
-import java.util.List;
+import java.io.IOException;
 
 public interface Joiner<T> {
 
-    List<JoiningTable> join(T tableA,T tableB);
+    void join(T tableA, T tableB, FileWriterImpl fileWrite);
 }

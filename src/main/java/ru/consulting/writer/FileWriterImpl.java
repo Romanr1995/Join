@@ -1,41 +1,61 @@
 package ru.consulting.writer;
 
-import ru.consulting.data.JoiningTable;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.util.List;
 
-public class FileWriterImpl implements FileWrite {
+public class FileWriterImpl {
     private String directory;
+    private String nameFile;
+    private File path;
 
-    public FileWriterImpl() {
-
-    }
-
-    public FileWriterImpl(String directory) {
+    public FileWriterImpl(String directory, String nameFile) {
         this.directory = directory;
+        this.nameFile = nameFile;
+        path = new File(directory.substring(0, directory.lastIndexOf("\\") + 1) + nameFile);
     }
 
-    @Override
-    public void writer(List<JoiningTable> joiningTables, String path) {
-        if (directory != null) {
-            path = directory.substring(0, directory.lastIndexOf("\\") + 1) + path;
-        }
+    public void writer(int id, String valueTableA, String valueTableB) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))) {
+                new OutputStreamWriter(new FileOutputStream(path, true), StandardCharsets.UTF_8))) {
 
-            bufferedWriter.write("ID\t\tA.VALUE\t\tB.VALUE\n");
-            for (JoiningTable joiningTable : joiningTables) {
-                String formatWrite = String.format("%d\t\t%s\t\t%s\n", joiningTable.getId(), joiningTable.getValueTableA(),
-                        joiningTable.getValueTableB());
-                bufferedWriter.write(formatWrite);
-            }
+            String formatWrite = String.format("%d\t\t%s\t\t%s\n", id, valueTableA,
+                    valueTableB);
+            bufferedWriter.write(formatWrite);
+
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println("Файл " + path + " не найден.");
         } catch (IOException exception) {
             System.out.println("При записи данных в файл произошла ошибка.");
         }
     }
+
+    public void writer() {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(path, true), StandardCharsets.UTF_8))) {
+
+            bufferedWriter.write("ID\t\tA.VALUE\t\tB.VALUE\n");
+
+        } catch (FileNotFoundException fileNotFoundException) {
+            System.out.println("Файл " + path + " не найден.");
+        } catch (IOException exception) {
+            System.out.println("При записи данных в файл произошла ошибка.");
+        }
+    }
+
+    public void cleanFile() {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))) {
+            bufferedWriter.write("");
+
+        } catch (FileNotFoundException fileNotFoundException) {
+            System.out.println("Файл " + path + " не найден.");
+        } catch (IOException exception) {
+            System.out.println("При записи данных в файл произошла ошибка.");
+        }
+    }
+
+    public File getPath() {
+        return path;
+    }
+
 }
