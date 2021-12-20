@@ -32,7 +32,7 @@ public class Application {
 
             Proxy<HashMap<Integer, List<String>>, HashMapJoiner> joinerHashMapProxy = new Proxy<>(new HashMapJoiner());
             joinerHashMapProxy.proxyJoiner(HashMapJoiner.sortToHashMap(tablesA), HashMapJoiner.sortToHashMap(tablesB),
-                    fileInputName, "ArrayList.txt");
+                    fileInputName, "HashMap.txt");
 
         } else {
             System.out.println("Ошибка!Должно быть задано 2 аргумента.А задано: " + args.length);
