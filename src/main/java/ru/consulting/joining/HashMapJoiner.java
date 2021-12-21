@@ -10,31 +10,20 @@ import java.util.stream.Collectors;
 
 public class HashMapJoiner implements Joiner<HashMap<Integer, List<String>>> {
     @Override
-    public void join(HashMap<Integer, List<String>> tableA, HashMap<Integer, List<String>> tableB, BufferedWriter bufferedWriter) {
-
-        try {
-            bufferedWriter.write("ID\t\tA.VALUE\t\tB.VALUE\n");
-            tableA.forEach((k, v) -> {
-                if (tableB.containsKey(k)) {
-                    v.stream().parallel().forEach(tA -> tableB.get(k).stream().forEach(
-                            tB -> {
-                                try {
-                                    bufferedWriter.write(k + "\t\t" + tA + "\t\t" + tB + "\n");
-                                } catch (IOException e) {
-                                    System.out.println("Ошибка при join HastMap.Не удается записать данные в файл");
-                                }
-                            }));
-                }
-            });
-        } catch (IOException e) {
-            System.out.println("Ошибка при join HashMap.Не удается записать данные в файл");
-        } finally {
-            try {
-                bufferedWriter.close();
-            } catch (IOException e) {
-                System.out.println("Ошибка при закрытии файла.");
+    public void join(HashMap<Integer, List<String>> tableA, HashMap<Integer, List<String>> tableB, BufferedWriter bufferedWriter) throws IOException {
+        bufferedWriter.write("ID\t\tA.VALUE\t\tB.VALUE\n");
+        tableA.forEach((k, v) -> {
+            if (tableB.containsKey(k)) {
+                v.stream().parallel().forEach(tA -> tableB.get(k).stream().forEach(
+                        tB -> {
+                            try {
+                                bufferedWriter.write(k + "\t\t" + tA + "\t\t" + tB + "\n");
+                            } catch (IOException e) {
+                                System.out.println("Ошибка при join HastMap.Не удается записать данные в файл");
+                            }
+                        }));
             }
-        }
+        });
     }
 
     public static HashMap<Integer, List<String>> sortToHashMap(List<Table> tables) {
