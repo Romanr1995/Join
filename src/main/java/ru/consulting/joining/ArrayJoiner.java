@@ -24,6 +24,12 @@ public class ArrayJoiner implements Joiner<ArrayList<Table>> {
                     }));
         } catch (IOException e) {
             System.out.println("Ошибка при join ArrayList.Не удается записать данные в файл");
+        } finally {
+            try {
+                bufferedWriter.close();
+            } catch (IOException e) {
+                System.out.println("Ошибка при закрытии файла.");
+            }
         }
     }
 }

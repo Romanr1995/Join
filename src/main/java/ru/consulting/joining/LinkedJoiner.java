@@ -52,6 +52,12 @@ public class LinkedJoiner implements Joiner<LinkedList<Table>> {
             }
         } catch (IOException e) {
             System.out.println("Ошибка при join LinkedList.Не удается записать данные в файл");
+        } finally {
+            try {
+                bufferedWriter.close();
+            } catch (IOException e) {
+                System.out.println("Ошибка при закрытии файла.");
+            }
         }
     }
 }

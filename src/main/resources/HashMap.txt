@@ -1,6 +1,6 @@
 ID		A.VALUE		B.VALUE
-2		C		A
 2		B		A
+2		C		A
 3		D		E
 5		T		L
 5		D		L

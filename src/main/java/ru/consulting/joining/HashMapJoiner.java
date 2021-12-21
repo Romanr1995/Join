@@ -28,6 +28,12 @@ public class HashMapJoiner implements Joiner<HashMap<Integer, List<String>>> {
             });
         } catch (IOException e) {
             System.out.println("Ошибка при join HashMap.Не удается записать данные в файл");
+        } finally {
+            try {
+                bufferedWriter.close();
+            } catch (IOException e) {
+                System.out.println("Ошибка при закрытии файла.");
+            }
         }
     }
 
