@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Proxy<E, T extends Joiner<E>> {
-    private T join;
+    private final T join;
 
     public Proxy(T join) {
         this.join = join;
